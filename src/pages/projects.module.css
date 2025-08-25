@@ -1,0 +1,301 @@
+/* ===== design tokens ===== */
+:root{
+  --p3d-max: 1140px;
+  --p3d-radius: 18px;
+  --p3d-radius-sm: 12px;
+
+  /* фирменные градиенты/блики */
+  --p3d-grad-1: linear-gradient(135deg,#6a8dff 0%,#9a4dff 45%,#00e0ff 100%);
+  --p3d-glow-a: radial-gradient(1100px 650px at 15% 0%, rgba(106,141,255,.25) 0%, transparent 60%);
+  --p3d-glow-b: radial-gradient(900px 540px at 85% 8%, rgba(154,77,255,.22) 0%, transparent 60%);
+
+  /* тёмная тема по умолчанию */
+  --p3d-bg: #0b0f1d;
+  --p3d-bg-2: #101527;
+  --p3d-text: #ffffff;
+  --p3d-text-dim: rgba(255,255,255,.82);
+  --p3d-stroke: rgba(255,255,255,.14);
+  --p3d-glass: rgba(255,255,255,.07);
+  --p3d-shadow-card: 0 16px 40px rgba(0,0,0,.35);
+  --p3d-shadow-neon: 0 6px 24px rgba(0,224,255,.28), 0 2px 6px rgba(154,77,255,.22);
+
+  --p3d-blur: 14px;
+
+  --p3d-hero-title: #e9efff;
+  --p3d-hero-lead:  rgba(255,255,255,.88);
+}
+
+/* светлая тема */
+html[data-theme='light'] :root{
+  --p3d-bg: #eef3ff;
+  --p3d-bg-2: #f7f9ff;
+  --p3d-text: #0b0d16;
+  --p3d-text-dim: rgba(0,0,0,.78);
+  --p3d-stroke: rgba(0,0,0,.10);
+  --p3d-glass: rgba(255,255,255,.58);
+  --p3d-shadow-card: 0 14px 34px rgba(0,0,0,.10);
+
+  /* чуть темнее градиент для читаемости на светлом фоне */
+  --p3d-hero-title: #18235a;
+  --p3d-hero-lead:  rgba(0,0,0,.78);
+}
+
+/* ===== обёртка страницы: общий фон как на главной ===== */
+.pageWrap{
+  background:
+    var(--p3d-glow-a),
+    var(--p3d-glow-b),
+    linear-gradient(180deg, #0c1122 0%, #121a33 40%, #0e1327 100%);
+  min-height: 100%;
+  color: var(--p3d-text);
+}
+html[data-theme='light'] .pageWrap{
+  background:
+    radial-gradient(1100px 650px at 20% -5%, rgba(106,141,255,.22), transparent 60%),
+    radial-gradient(900px 520px  at 90%  0%, rgba(0,224,255,.18),   transparent 60%),
+    linear-gradient(180deg, #eaf0ff 0%, #f5f8ff 100%);
+}
+
+/* ===== hero ===== */
+.hero{
+  position: relative;
+  overflow: hidden;
+  padding: 88px 0 54px;
+  background:
+    radial-gradient(1200px 800px at 50% -10%, rgba(0,224,255,.22), transparent 60%),
+    var(--p3d-glow-a),
+    var(--p3d-glow-b),
+    linear-gradient(180deg, rgba(10,12,20,.92) 0%, rgba(10,12,20,.72) 100%);
+}
+html[data-theme='light'] .hero{
+  background:
+    radial-gradient(1200px 800px at 50% -10%, rgba(0,112,255,.18), transparent 60%),
+    var(--p3d-glow-a),
+    var(--p3d-glow-b),
+    linear-gradient(180deg, #e9efff 0%, #f6f9ff 100%);
+}
+
+.hero :global(.container){ max-width: var(--p3d-max); }
+
+.heroTitle{
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: .3px;
+  margin: 0 0 10px;
+  background: var(--p3d-grad-1);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(0,0,0,.08);
+}
+html[data-theme='light'] .heroTitle{
+  /* для света оставляем градиент, но добавим лёгкий fill как fallback */
+  -webkit-text-fill-color: transparent;
+}
+
+.heroLead{
+  margin: 0 0 26px;
+  font-size: clamp(16px, 1.6vw, 18px);
+  color: var(--p3d-hero-lead);
+  max-width: 760px;
+}
+
+.heroActions{
+  display: flex; flex-wrap: wrap; gap: 14px;
+}
+
+/* ===== buttons ===== */
+.btn,
+.btnPrimary,
+.btnGhost{
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius:999px; padding:12px 18px; font-weight:600;
+  border:1px solid transparent;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  text-decoration:none !important;
+}
+
+.btnPrimary{
+  background: var(--p3d-grad-1);
+  color:#0b0d16;
+  box-shadow: var(--p3d-shadow-neon);
+}
+.btnPrimary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 34px rgba(0,224,255,.40), 0 4px 12px rgba(154,77,255,.30);
+}
+
+.btnGhost{
+  background: transparent;
+  border-color: var(--p3d-stroke);
+  color: var(--ifm-color-primary);
+}
+.btnGhost:hover{
+  border-color: currentColor;
+  background: rgba(255,255,255,.06);
+}
+html[data-theme='light'] .btnGhost:hover{ background: rgba(0,0,0,.04); }
+
+/* ===== контейнер контента ===== */
+.page :global(.container){
+  max-width: var(--p3d-max);
+  padding-top: 28px;
+  padding-bottom: 40px;
+  color: var(--p3d-text);
+}
+/* ===== tabs ===== */
+.tabs{
+  display:grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap:10px; margin:8px 0 22px;
+}
+.tab{
+  appearance:none; cursor:pointer; text-align:center; font-weight:600;
+  padding:10px 14px; border-radius: var(--p3d-radius-sm);
+  border:1px solid var(--p3d-stroke);
+  background: var(--p3d-glass);
+  -webkit-backdrop-filter: blur(var(--p3d-blur));
+          backdrop-filter: blur(var(--p3d-blur));
+  color: var(--p3d-text-dim);
+  transition: border-color .2s ease, transform .12s ease, color .2s ease, background .2s ease;
+}
+.tab:hover{ transform: translateY(-1px); }
+
+.active{
+  color:#fff;
+  border-color: transparent;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04)),
+    var(--p3d-grad-1);
+  box-shadow: var(--p3d-shadow-neon);
+}
+
+
+/* ===== grid ===== */
+.grid{
+  display:grid; grid-template-columns: repeat(12, 1fr); gap:18px;
+}
+@media (max-width:1100px){ .grid{ grid-template-columns: repeat(8, 1fr); } }
+@media (max-width: 720px){ .grid{ grid-template-columns: repeat(4, 1fr); } }
+
+/* ===== card ===== */
+.card{
+  grid-column: span 4;
+  position: relative; overflow:hidden;
+  border-radius: var(--p3d-radius);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)),
+    var(--p3d-glass);
+  -webkit-backdrop-filter: blur(calc(var(--p3d-blur) - 2px));
+          backdrop-filter: blur(calc(var(--p3d-blur) - 2px));
+  border:1px solid var(--p3d-stroke);
+  box-shadow: var(--p3d-shadow-card);
+  transition: transform .18s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.card::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(130% 90% at 50% -10%, rgba(255,255,255,.10), transparent 35%),
+    radial-gradient(80%  60% at 100% 0%, rgba(0,224,255,.08), transparent 35%);
+  opacity:.9;
+}
+.card:hover{
+  transform: translateY(-4px);
+  border-color: rgba(0,224,255,.35);
+  box-shadow: 0 20px 48px rgba(0,0,0,.35), 0 8px 24px rgba(0,224,255,.22);
+}
+
+.img{
+  display:block; width:100%; aspect-ratio:16/10; object-fit:cover;
+}
+
+.cardTitle{
+  color: var(--p3d-text);
+  font-size:18px; font-weight:700;
+  padding:14px 16px 6px; margin:0;
+}
+.cardText{
+  padding:0 16px 14px; margin:0;
+  color: var(--p3d-text-dim); line-height:1.5; min-height:64px;
+}
+.cardActions{ display:flex; gap:10px; padding:0 16px 16px; }
+
+@media (max-width:1100px){ .card{ grid-column: span 6; } }
+@media (max-width: 720px){ .card{ grid-column: span 4; } }
+
+/* ===== пустое состояние ===== */
+.empty{
+  grid-column:1 / -1; padding:28px 18px; text-align:center;
+  border-radius: var(--p3d-radius);
+  background: var(--p3d-glass); border:1px dashed var(--p3d-stroke);
+  color: var(--p3d-text-dim);
+}
+
+/* ===== CTA внизу ===== */
+.cta{
+  margin-top:34px; padding:26px;
+  border-radius: calc(var(--p3d-radius) + 4px);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)),
+    var(--p3d-glow-a), var(--p3d-glow-b);
+  border:1px solid var(--p3d-stroke);
+  box-shadow: var(--p3d-shadow-card);
+  color: var(--p3d-text);
+}
+.ctaTitle{
+  margin:0 0 6px; font-size:clamp(22px,3.2vw,28px); font-weight:800;
+}
+.ctaText{
+  margin:0 0 14px; max-width:780px; color: var(--p3d-text-dim);
+}
+.ctaRow{ display:flex; gap:12px; flex-wrap:wrap; }
+
+/* ===== a11y / motion ===== */
+@media (prefers-reduced-motion: reduce){
+  .btn, .btnPrimary, .btnGhost, .tab, .card{ transition:none !important; }
+  .card:hover, .tab:hover{ transform:none !important; }
+}
+/* ===== LOCK DARK LOOK even in light theme ===== */
+:global(html[data-theme='light']) body {
+  /* цвет текста по умолчанию */
+  color: #fff;
+  background: #0b0f1d; /* на всякий случай */
+}
+
+/* те же токены, что и в тёмной теме */
+:global(html[data-theme='light']) :root{
+  --p3d-bg: #0b0f1d;
+  --p3d-bg-2: #101527;
+  --p3d-text: #ffffff;
+  --p3d-text-dim: rgba(255,255,255,.82);
+  --p3d-stroke: rgba(255,255,255,.14);
+  --p3d-glass: rgba(255,255,255,.07);
+  --p3d-shadow-card: 0 16px 40px rgba(0,0,0,.35);
+  --p3d-shadow-neon: 0 6px 24px rgba(0,224,255,.28), 0 2px 6px rgba(154,77,255,.22);
+  --p3d-hero-title: #e9efff;
+  --p3d-hero-lead:  rgba(255,255,255,.88);
+}
+
+/* фикс именно для проектов: фон и хиро остаются «синими» */
+:global(html[data-theme='light']) .pageWrap{
+  background:
+    radial-gradient(1100px 650px at 15% 0%, rgba(106,141,255,.25) 0%, transparent 60%),
+    radial-gradient(900px 540px  at 85% 8%,  rgba(154,77,255,.22) 0%, transparent 60%),
+    linear-gradient(180deg, #0c1122 0%, #121a33 40%, #0e1327 100%);
+  color:#fff;
+}
+:global(html[data-theme='light']) .hero{
+  background:
+    radial-gradient(1200px 800px at 50% -10%, rgba(0,224,255,.22), transparent 60%),
+    radial-gradient(1100px 650px at 15% 0%, rgba(106,141,255,.25) 0%, transparent 60%),
+    radial-gradient(900px 540px  at 85% 8%,  rgba(154,77,255,.22) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(10,12,20,.92) 0%, rgba(10,12,20,.72) 100%);
+}
+:global(html[data-theme='light']) .cardTitle,
+:global(html[data-theme='light']) .cta,
+:global(html[data-theme='light']) .page :global(.container){
+  color:#fff;
+}
+:global(html[data-theme='light']) .cardText,
+:global(html[data-theme='light']) .ctaText{
+  color: rgba(255,255,255,.82);
+}

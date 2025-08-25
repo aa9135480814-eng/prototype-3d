@@ -1,0 +1,23 @@
+/* кастомные стили Docusaurus */
+:root { --ifm-color-primary: #1d4ed8; }
+/* === Navbar primary button: keep text visible on hover/active/focus === */
+.navbar .button--primary,
+.navbar .button--primary:hover,
+.navbar .button--primary:active,
+.navbar .button--primary:focus,
+.navbar .button--primary:focus-visible {
+  color: #fff !important;           /* всегда белый текст */
+  text-shadow: 0 1px 0 rgba(0,0,0,.25); /* немного контраста */
+}
+
+/* Не даем “гаснуть” при нажатии */
+.navbar .button--primary:active {
+  filter: brightness(0.98);          /* чуть темнее фон, но текст белый */
+  transform: translateY(0);          /* без сильного “проваливания” */
+}
+
+/* Видимая обводка для клавиатурного фокуса */
+.navbar .button--primary:focus-visible {
+  outline: 2px solid #00e0ff;
+  outline-offset: 2px;
+}
