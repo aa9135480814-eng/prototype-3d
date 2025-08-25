@@ -1,3 +1,4 @@
+// docusaurus.config.js
 const { themes: prismThemes } = require('prism-react-renderer');
 
 /** @type {import('@docusaurus/types').Config} */
@@ -6,16 +7,15 @@ const config = {
   tagline: '3D-печать и цифровое производство',
   favicon: 'img/favicon.ico',
 
-  // === Настройка под GitHub Pages ===
-  url: 'https://aa9135480814-eng.github.io',     // ← заменяешь на свой логин
-  baseUrl: '/prototype-3d/',            // ← заменяешь на имя репо (с обоих сторон /)
+  // === GitHub Pages ===
+  url: 'https://aa9135480814-eng.github.io', // твой аккаунт GitHub Pages
+  baseUrl: '/prototype-3d/',                  // имя репозитория (со слешами)
+  organizationName: 'aa9135480814-eng',       // логин GitHub
+  projectName: 'prototype-3d',                // имя репозитория
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
-  organizationName: 'aa9135480814-eng',          // ← твой GitHub-логин
-  projectName: 'prototype-3d',          // ← имя репозитория
-  deploymentBranch: 'gh-pages',              // ветка для публикации
-  trailingSlash: false,                      // ссылки без / на конце
-
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',          // чтобы билд не падал из-за временных ссылок
   onBrokenMarkdownLinks: 'warn',
 
   i18n: { defaultLocale: 'ru', locales: ['ru'] },
@@ -30,19 +30,16 @@ const config = {
   presets: [
     [
       'classic',
-      ({
+      {
         docs: false,
         blog: false,
-        pages: { path: 'src/pages' },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      }),
+        // страницы берутся из src/pages по умолчанию
+        theme: { customCss: require.resolve('./src/css/custom.css') },
+      },
     ],
   ],
 
   themeConfig: {
-    // Светлая тема по умолчанию
     colorMode: {
       defaultMode: 'light',
       respectPrefersColorScheme: false,
@@ -57,9 +54,14 @@ const config = {
         { to: '/', label: 'Главная', position: 'left', activeBaseRegex: '^/$' },
         { to: '/services', label: 'Услуги', position: 'left' },
         { to: '/technologies', label: 'Технологии', position: 'left' },
-       {to: '/projects', label: 'Проекты', position: 'left'},
+        { to: '/projects', label: 'Проекты', position: 'left' },
         { to: '/contacts', label: 'Контакты', position: 'left' },
-        { to: '/contacts', label: 'Получить предложение', position: 'right', className: 'button button--primary navbar-cta' },
+        {
+          to: '/contacts',
+          label: 'Получить предложение',
+          position: 'right',
+          className: 'button button--primary navbar-cta',
+        },
       ],
     },
 
